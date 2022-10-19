@@ -3,7 +3,7 @@ import {db} from '../firebase';
 import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 
 const Formulario = () => {
-    const [fruta, setFruta] = useState('')
+    const [nombre, setNombre] = useState('')
     const [apellido, setApellido] = useState('')
     const [cedula, setCedula] = useState('')
     const [ciudad, setCiudad] = useState('')
@@ -19,7 +19,7 @@ const Formulario = () => {
     useEffect(()=>{
         const obtenerDatos = async () => {
             try{
-                await onSnapshot(collection(db, "frutas"), (query)=>{
+                await onSnapshot(collection(db, "solicitudes"), (query)=>{
                     setLista_sol(query.docs.map((doc)=>({...doc.data(), id:doc.id})))
                 })
             }catch(error){
@@ -31,25 +31,37 @@ const Formulario = () => {
 
     const eliminar = async id =>{
         try{
-            await deleteDoc(doc(db, 'frutas', id))
+            await deleteDoc(doc(db, 'solicitudes', id))
         }catch(error){
             console.log(error)
         }
     }
 
-    const guardarFrutas = async (e) => {
+    const guardar_sol = async (e) => {
         e.preventDefault()
         try{
-            const data = await addDoc(collection(db, 'frutas'),{
-                nombreFruta:fruta,
+            const data = await addDoc(collection(db, 'solicitudes'),{
+                Nombre:nombre,
+                Apellido:apellido,
+                Cedula:cedula,
+                Ciudad:ciudad,
+                Direccion:direccion,
+                Correo:correo,
+                Asunto:asunto,
                 nombreDescripcion: descripcion
             })
             setLista_sol([
                 ...lista_solicitudes,
-                {nombreFruta: fruta, nombreDescripcion: descripcion, id:data.id}
+                {Cedula:cedula, Apellido:apellido, Asunto:asunto, nombreDescripcion: descripcion, id:data.id}
             ])
 
-            setFruta('')
+            setNombre('')
+            setApellido('')
+            setCedula('')
+            setCiudad('')
+            setDir('')
+            setCorreo('')
+            setAsunto('')
             setDescripcion('')
 
         }catch(error){
@@ -57,21 +69,40 @@ const Formulario = () => {
         }
     }
 
-    const editarFrutas = async (e) => {
+    const editarDatos = async (e) => {
         e.preventDefault()
         try{
-            const docRef = doc(db, 'frutas', id);
+            const docRef = doc(db, 'solicitudes', id);
             await updateDoc(docRef, {
-                nombreFruta:fruta,
-                nombreDescripcion:descripcion
+                Nombre:nombre,
+                Apellido:apellido,
+                Cedula:cedula,
+                Ciudad:ciudad,
+                Direccion:direccion,
+                Correo:correo,
+                Asunto:asunto,
+                nombreDescripcion: descripcion
             })
 
             const nuevoArray = lista_solicitudes.map(
-                item => item.id === id ? {id: id, nombreFruta:fruta, nombreDescripcion:descripcion} : item
+                item => item.id === id ? {id: id, Nombre:nombre,
+                    Apellido:apellido,
+                    Cedula:cedula,
+                    Ciudad:ciudad,
+                    Direccion:direccion,
+                    Correo:correo,
+                    Asunto:asunto,
+                    nombreDescripcion: descripcion} : item
             )
             
             setLista_sol(nuevoArray)
-            setFruta('')
+            setNombre('')
+            setApellido('')
+            setCedula('')
+            setCiudad('')
+            setDir('')
+            setCorreo('')
+            setAsunto('')
             setDescripcion('')
             setId('')
             setModoEdicion(false)
@@ -82,7 +113,13 @@ const Formulario = () => {
     }
 
     const editar = item =>{
-        setFruta(item.nombreFruta)
+        setNombre(item.Nombre)
+        setApellido(item.Apellido)
+        setCedula(item.Cedula)
+        setCiudad(item.Ciudad)
+        setDir(item.Direccion)
+        setCorreo(item.Correo)
+        setAsunto(item.Asunto)
         setDescripcion(item.nombreDescripcion)
         setId(item.id)
         setModoEdicion(true)
@@ -90,7 +127,13 @@ const Formulario = () => {
 
     const cancelar = () =>{
         setModoEdicion(false)
-        setFruta('')
+        setNombre('')
+        setApellido('')
+        setCedula('')
+        setCiudad('')
+        setDir('')
+        setCorreo('')
+        setAsunto('')
         setDescripcion('')
         setId('')
     }
@@ -107,12 +150,12 @@ const Formulario = () => {
                     modoEdicion ? 'Editar Solicitud' : 'Nueva Solicitud'
                 }
             </h4>
-            <form onSubmit={modoEdicion ? editarFrutas : guardarFrutas}>
+            <form onSubmit={modoEdicion ? editarDatos : guardar_sol}>
                 <input type="text" 
                 className="form-control mb-2" 
                 placeholder='Nombre'
-                value={fruta}
-                onChange={(e)=>setFruta(e.target.value)}/>
+                value={nombre}
+                onChange={(e)=>setNombre(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
                 placeholder='Apellido'
@@ -170,7 +213,22 @@ const Formulario = () => {
                 }
             </form>
             </div>
-            
+            <div className="col-8">
+                <h4 className="text-center">Lista de Solicitudes</h4>
+                <ul className="list-group">
+                    {
+                        lista_solicitudes.map(item => (
+                            <li className="list-group-item" key={item.id}>
+                                <span className="lead">{item.nombreFruta}-{item.nombreDescripcion}</span>
+                                <button
+                                className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
+                                <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
+                                >Editar</button>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
         </div>
     </div>
   )
