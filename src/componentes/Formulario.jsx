@@ -141,11 +141,11 @@ const Formulario = () => {
 
   return (
     <div className='container mt-5'>
-        <h1 className='text-center'>Help Desk!</h1>
+        <h1 className='text-center titulos'>Help Desk!</h1>
         <hr/>
         <div className="row">
             <div className="col-4">
-            <h4 className="text-center">
+            <h4 className="text-center titulos">
                 {
                     modoEdicion ? 'Editar Solicitud' : 'Nueva Solicitud'
                 }
@@ -153,42 +153,42 @@ const Formulario = () => {
             <form onSubmit={modoEdicion ? editarDatos : guardar_sol}>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Nombre'
+                placeholder='Nombre' required
                 value={nombre}
                 onChange={(e)=>setNombre(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Apellido'
+                placeholder='Apellido' required
                 value={apellido}
                 onChange={(e)=>setApellido(e.target.value)}/>
                 <input type="number" min={1000000}
                 className="form-control mb-2" 
-                placeholder='C.C.'
+                placeholder='C.C.' required
                 value={cedula}
                 onChange={(e)=>setCedula(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Ciudad'
+                placeholder='Ciudad' required
                 value={ciudad}
                 onChange={(e)=>setCiudad(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Dirección'
+                placeholder='Dirección' required
                 value={direccion}
                 onChange={(e)=>setDir(e.target.value)}/>
-                <input type="text" 
+                <input type="email" 
                 className="form-control mb-2" 
-                placeholder='Correo'
+                placeholder='Correo' required
                 value={correo}
                 onChange={(e)=>setCorreo(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Asunto'
+                placeholder='Asunto' required
                 value={asunto}
                 onChange={(e)=>setAsunto(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Ingrese Descripción'
+                placeholder='Ingrese Descripción' required
                 value={descripcion}
                 onChange={(e)=>setDescripcion(e.target.value)}/>
                 {
@@ -207,19 +207,19 @@ const Formulario = () => {
                     
                     <button 
                     type='submit'
-                    className='btn btn-primary btn-block'>
+                    className='btn btn-primary btn-block botonsu'>
                     Registrar
                     </button>
                 }
             </form>
             </div>
             <div className="col-8">
-                <h4 className="text-center">Lista de Solicitudes</h4>
+                <h4 className="text-center titulos">Lista de Solicitudes</h4>
                 <ul className="list-group">
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
-                                <span className="lead">{item.nombreFruta}-{item.nombreDescripcion}</span>
+                                <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto}</span>
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
