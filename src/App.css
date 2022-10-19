@@ -63,3 +63,7 @@ body {
 .botonsu{
   border: white 1px solid;
 }
+
+textarea {
+  resize: none;
+}

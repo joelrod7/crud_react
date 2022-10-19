@@ -52,7 +52,15 @@ const Formulario = () => {
             })
             setLista_sol([
                 ...lista_solicitudes,
-                {Cedula:cedula, Apellido:apellido, Asunto:asunto, nombreDescripcion: descripcion, id:data.id}
+                {   Nombre: nombre,
+                    Apellido: apellido,
+                    Cedula: cedula,
+                    Ciudad: ciudad,
+                    Direccion: direccion,
+                    Correo: correo,
+                    Asunto: asunto,
+                    nombreDescripcion: descripcion,
+                    id:data.id}
             ])
 
             setNombre('')
@@ -186,11 +194,9 @@ const Formulario = () => {
                 placeholder='Asunto' required
                 value={asunto}
                 onChange={(e)=>setAsunto(e.target.value)}/>
-                <input type="text" 
-                className="form-control mb-2" 
-                placeholder='Ingrese Descripción' required
-                value={descripcion}
-                onChange={(e)=>setDescripcion(e.target.value)}/>
+                <textarea className="form-control mb-2" rows="5" placeholder='Ingrese Descripción' maxlength="500"
+                value={descripcion} required
+                onChange={(e)=>setDescripcion(e.target.value)}></textarea>
                 {
                     modoEdicion ?
                     (
