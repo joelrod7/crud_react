@@ -1,10 +1,13 @@
 // import logo from './logo.svg';
 import './App.css';
+import Formulario from './componentes/Formulario';
 
 function App() {
   return (
     <div className="App">
-      <h1>Inicio</h1>
+      <div>
+      <Formulario/>
+      </div>
     </div>
   );
 }
