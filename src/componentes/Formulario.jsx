@@ -74,24 +74,24 @@ const Formulario = () => {
         try{
             const docRef = doc(db, 'solicitudes', id);
             await updateDoc(docRef, {
-                Nombre:nombre,
-                Apellido:apellido,
-                Cedula:cedula,
-                Ciudad:ciudad,
-                Direccion:direccion,
-                Correo:correo,
-                Asunto:asunto,
+                Nombre: nombre,
+                Apellido: apellido,
+                Cedula: cedula,
+                Ciudad: ciudad,
+                Direccion: direccion,
+                Correo: correo,
+                Asunto: asunto,
                 nombreDescripcion: descripcion
             })
 
             const nuevoArray = lista_solicitudes.map(
                 item => item.id === id ? {id: id, Nombre:nombre,
-                    Apellido:apellido,
-                    Cedula:cedula,
-                    Ciudad:ciudad,
-                    Direccion:direccion,
-                    Correo:correo,
-                    Asunto:asunto,
+                    Apellido: apellido,
+                    Cedula: cedula,
+                    Ciudad: ciudad,
+                    Direccion: direccion,
+                    Correo: correo,
+                    Asunto: asunto,
                     nombreDescripcion: descripcion} : item
             )
             
