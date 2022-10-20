@@ -67,3 +67,8 @@ body {
 textarea {
   resize: none;
 }
+
+.ima{
+  width: 100px;
+  height: 100px;
+}

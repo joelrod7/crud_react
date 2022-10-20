@@ -14,6 +14,7 @@ const Formulario = () => {
     const [lista_solicitudes, setLista_sol] = useState([])
     const [modoEdicion, setModoEdicion] = useState(false)
     const [id, setId] = useState('')
+    const url = "https://picsum.photos/id/"
     
     
     useEffect(()=>{
@@ -146,6 +147,9 @@ const Formulario = () => {
         setId('')
     }
 
+    function aleatorio(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
 
   return (
     <div className='container mt-5'>
@@ -225,7 +229,8 @@ const Formulario = () => {
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
-                                <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto}</span>
+                                <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto} </span>
+                                <img src={url+aleatorio(30,1000)+"/200/300"} className='ima'/>
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
