@@ -193,11 +193,11 @@ const Formulario = () => {
                 placeholder='Correo' required
                 value={correo}
                 onChange={(e)=>setCorreo(e.target.value)}/>
-                {/* <input type="text" 
+                <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Asunto' required
+                placeholder='Stock' required
                 value={asunto}
-                onChange={(e)=>setAsunto(e.target.value)}/> */}
+                onChange={(e)=>setAsunto(e.target.value)}/>
                 <textarea className="form-control mb-2" rows="5" placeholder='Agregar anotación' maxlength="500"
                 value={descripcion} required
                 onChange={(e)=>setDescripcion(e.target.value)}></textarea>
@@ -229,9 +229,9 @@ const Formulario = () => {
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
-                                <span className="lead">{item.Cedula} {item.Nombre} - {item.Direccion} </span>
+                                <span className="lead">{item.Cedula} - {item.Nombre} - {item.Direccion} - {item.Asunto}</span>
                                 {/* <img src={"https://picsum.photos/id/"+aleatorio(30,999)+"/200/300"} className='ima' alt='Vista imagen'/> */}
-                                
+
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
