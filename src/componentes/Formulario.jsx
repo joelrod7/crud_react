@@ -16,7 +16,7 @@ const Formulario = () => {
     const [id, setId] = useState('')
     const url = "https://picsum.photos/id/"
     
-    
+
     useEffect(()=>{
         const obtenerDatos = async () => {
             try{
@@ -165,27 +165,27 @@ const Formulario = () => {
             <form onSubmit={modoEdicion ? editarDatos : guardar_sol}>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Nombre' required
+                placeholder='Nombre de producto' required
                 value={nombre}
                 onChange={(e)=>setNombre(e.target.value)}/>
-                <input type="text" 
+                {/* <input type="text" 
                 className="form-control mb-2" 
                 placeholder='Apellido' required
                 value={apellido}
-                onChange={(e)=>setApellido(e.target.value)}/>
-                <input type="number" min={1000000}
+                onChange={(e)=>setApellido(e.target.value)}/> */}
+                <input type="number"
                 className="form-control mb-2" 
-                placeholder='C.C.' required
+                placeholder='Código de producto' required
                 value={cedula}
                 onChange={(e)=>setCedula(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Ciudad' required
+                placeholder='Ciudad de origen' required
                 value={ciudad}
                 onChange={(e)=>setCiudad(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Dirección' required
+                placeholder='Distribuidor' required
                 value={direccion}
                 onChange={(e)=>setDir(e.target.value)}/>
                 <input type="email" 
@@ -193,12 +193,12 @@ const Formulario = () => {
                 placeholder='Correo' required
                 value={correo}
                 onChange={(e)=>setCorreo(e.target.value)}/>
-                <input type="text" 
+                {/* <input type="text" 
                 className="form-control mb-2" 
                 placeholder='Asunto' required
                 value={asunto}
-                onChange={(e)=>setAsunto(e.target.value)}/>
-                <textarea className="form-control mb-2" rows="5" placeholder='Ingrese Descripción' maxlength="500"
+                onChange={(e)=>setAsunto(e.target.value)}/> */}
+                <textarea className="form-control mb-2" rows="5" placeholder='Agregar anotación' maxlength="500"
                 value={descripcion} required
                 onChange={(e)=>setDescripcion(e.target.value)}></textarea>
                 {
@@ -229,8 +229,9 @@ const Formulario = () => {
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
-                                <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto} </span>
-                                <img src={"https://picsum.photos/id/"+aleatorio(30,999)+"/200/300"} className='ima' alt='Vista imagen'/>
+                                <span className="lead">{item.Cedula} {item.Nombre} - {item.Direccion} </span>
+                                {/* <img src={"https://picsum.photos/id/"+aleatorio(30,999)+"/200/300"} className='ima' alt='Vista imagen'/> */}
+                                
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
