@@ -38,7 +38,7 @@
 }
 
 body {
-	background: linear-gradient(-45deg, #eeeb52, #e7c83c, #d5ba23, #d54c23);
+	background: linear-gradient(-45deg, #e03030, #e7c83c, #d5ba23, #d54c23);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
@@ -62,6 +62,7 @@ body {
 
 .botonsu{
   border: black 1px solid;
+  background-color: #282c34;
 }
 
 textarea {
