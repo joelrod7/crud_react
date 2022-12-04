@@ -20,7 +20,7 @@ const Formulario = () => {
     useEffect(()=>{
         const obtenerDatos = async () => {
             try{
-                await onSnapshot(collection(db, "solicitudes"), (query)=>{
+                await onSnapshot(collection(db, "nuevo_prod"), (query)=>{
                     setLista_sol(query.docs.map((doc)=>({...doc.data(), id:doc.id})))
                 })
             }catch(error){
@@ -32,7 +32,7 @@ const Formulario = () => {
 
     const eliminar = async id =>{
         try{
-            await deleteDoc(doc(db, 'solicitudes', id))
+            await deleteDoc(doc(db, 'nuevo_prod', id))
         }catch(error){
             console.log(error)
         }
@@ -41,7 +41,7 @@ const Formulario = () => {
     const guardar_sol = async (e) => {
         e.preventDefault()
         try{
-            const data = await addDoc(collection(db, 'solicitudes'),{
+            const data = await addDoc(collection(db, 'nuevo_prod'),{
                 Nombre:nombre,
                 Apellido:apellido,
                 Cedula:cedula,
@@ -81,7 +81,7 @@ const Formulario = () => {
     const editarDatos = async (e) => {
         e.preventDefault()
         try{
-            const docRef = doc(db, 'solicitudes', id);
+            const docRef = doc(db, 'nuevo_prod', id);
             await updateDoc(docRef, {
                 Nombre: nombre,
                 Apellido: apellido,
@@ -153,13 +153,13 @@ const Formulario = () => {
 
   return (
     <div className='container mt-5'>
-        <h1 className='text-center titulos'>Help Desk!</h1>
+        <h1 className='text-center titulos'>Registro Tienda</h1>
         <hr/>
         <div className="row">
             <div className="col-4">
             <h4 className="text-center titulos">
                 {
-                    modoEdicion ? 'Editar Solicitud' : 'Nueva Solicitud'
+                    modoEdicion ? 'Editar Solicitud' : 'Nuevo Producto'
                 }
             </h4>
             <form onSubmit={modoEdicion ? editarDatos : guardar_sol}>
@@ -224,13 +224,13 @@ const Formulario = () => {
             </form>
             </div>
             <div className="col-8">
-                <h4 className="text-center titulos">Lista de Solicitudes</h4>
+                <h4 className="text-center titulos">Lista Productos</h4>
                 <ul className="list-group">
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
                                 <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto} </span>
-                                <img src={url+aleatorio(30,1000)+"/200/300"} className='ima'/>
+                                <img src={"https://picsum.photos/id/"+aleatorio(30,999)+"/200/300"} className='ima' alt='Vista imagen'/>
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
