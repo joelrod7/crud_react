@@ -15,11 +15,11 @@ const Formulario = () => {
     const [modoEdicion, setModoEdicion] = useState(false)
     const [id, setId] = useState('')
     
-    
+
     useEffect(()=>{
         const obtenerDatos = async () => {
             try{
-                await onSnapshot(collection(db, "solicitudes"), (query)=>{
+                await onSnapshot(collection(db, "nuevo_prod"), (query)=>{
                     setLista_sol(query.docs.map((doc)=>({...doc.data(), id:doc.id})))
                 })
             }catch(error){
@@ -31,7 +31,7 @@ const Formulario = () => {
 
     const eliminar = async id =>{
         try{
-            await deleteDoc(doc(db, 'solicitudes', id))
+            await deleteDoc(doc(db, 'nuevo_prod', id))
         }catch(error){
             console.log(error)
         }
@@ -40,7 +40,7 @@ const Formulario = () => {
     const guardar_sol = async (e) => {
         e.preventDefault()
         try{
-            const data = await addDoc(collection(db, 'solicitudes'),{
+            const data = await addDoc(collection(db, 'nuevo_prod'),{
                 Nombre:nombre,
                 Apellido:apellido,
                 Cedula:cedula,
@@ -80,7 +80,7 @@ const Formulario = () => {
     const editarDatos = async (e) => {
         e.preventDefault()
         try{
-            const docRef = doc(db, 'solicitudes', id);
+            const docRef = doc(db, 'nuevo_prod', id);
             await updateDoc(docRef, {
                 Nombre: nombre,
                 Apellido: apellido,
@@ -152,39 +152,39 @@ const Formulario = () => {
 
   return (
     <div className='container mt-5'>
-        <h1 className='text-center titulos'>Help Desk!</h1>
+        <h1 className='text-center titulos'>Registro Tienda</h1>
         <hr/>
         <div className="row">
             <div className="col-4">
             <h4 className="text-center titulos">
                 {
-                    modoEdicion ? 'Editar Solicitud' : 'Nueva Solicitud'
+                    modoEdicion ? 'Editar Solicitud' : 'Nuevo Producto'
                 }
             </h4>
             <form onSubmit={modoEdicion ? editarDatos : guardar_sol}>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Nombre' required
+                placeholder='Nombre de producto' required
                 value={nombre}
                 onChange={(e)=>setNombre(e.target.value)}/>
-                <input type="text" 
+                {/* <input type="text" 
                 className="form-control mb-2" 
                 placeholder='Apellido' required
                 value={apellido}
-                onChange={(e)=>setApellido(e.target.value)}/>
-                <input type="number" min={1000000}
+                onChange={(e)=>setApellido(e.target.value)}/> */}
+                <input type="number"
                 className="form-control mb-2" 
-                placeholder='C.C.' required
+                placeholder='Código de producto' required
                 value={cedula}
                 onChange={(e)=>setCedula(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Ciudad' required
+                placeholder='Ciudad de origen' required
                 value={ciudad}
                 onChange={(e)=>setCiudad(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Dirección' required
+                placeholder='Distribuidor' required
                 value={direccion}
                 onChange={(e)=>setDir(e.target.value)}/>
                 <input type="email" 
@@ -194,10 +194,10 @@ const Formulario = () => {
                 onChange={(e)=>setCorreo(e.target.value)}/>
                 <input type="text" 
                 className="form-control mb-2" 
-                placeholder='Asunto' required
+                placeholder='Stock' required
                 value={asunto}
                 onChange={(e)=>setAsunto(e.target.value)}/>
-                <textarea className="form-control mb-2" rows="5" placeholder='Ingrese Descripción' maxlength="500"
+                <textarea className="form-control mb-2" rows="5" placeholder='Agregar anotación' maxlength="500"
                 value={descripcion} required
                 onChange={(e)=>setDescripcion(e.target.value)}></textarea>
                 {
@@ -223,13 +223,14 @@ const Formulario = () => {
             </form>
             </div>
             <div className="col-8">
-                <h4 className="text-center titulos">Lista de Solicitudes</h4>
+                <h4 className="text-center titulos">Lista Productos</h4>
                 <ul className="list-group">
                     {
                         lista_solicitudes.map(item => (
                             <li className="list-group-item" key={item.id}>
-                                <span className="lead">{item.Cedula} {item.Apellido} - {item.Asunto} </span>
-                                <img src={"https://picsum.photos/id/"+aleatorio(30,1000)+"/200/300"} className='ima' alt='Vista imagen'/>
+                                <span className="lead">{item.Cedula} - {item.Nombre} - {item.Direccion} - {item.Asunto}</span>
+                                {/* <img src={"https://picsum.photos/id/"+aleatorio(30,999)+"/200/300"} className='ima' alt='Vista imagen'/> */}
+
                                 <button
                                 className="btn btn-danger btn-sm float-end mx-2" onClick={()=>eliminar(item.id)}>Eliminar</button>
                                 <button className="btn btn-warning btn-sm float-end" onClick={()=>editar(item)}
